@@ -1,0 +1,29 @@
+div,
+span,
+h1,
+h2 {
+  font-family: "Tiro Gurmukhi";
+  color: #451209;
+}
+
+.App {
+  background-image: url("./background.jpeg");
+  padding-left: 0.67em;
+  padding-right: 0.67em;
+  padding-top: 40px;
+}
+
+h1 {
+  font-family: "Tiro Gurmukhi", serif;
+  color: #58180d;
+  margin-block-start: 0.45em;
+  font-size: 28px;
+}
+
+h2 {
+  font-family: "Tiro Gurmukhi", serif;
+  color: #f0edd3;
+  font-size: 20px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
