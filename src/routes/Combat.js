@@ -187,6 +187,15 @@ const Combat = () => {
               {option.name}
             </AccordionSummary>
             <AccordionDetails sx={{ paddingTop: 0, paddingBottom: 0 }}>
+              <div>
+                {option.components.find((component) =>
+                  component.startsWith("M")
+                )
+                  ? `Material: ${option.components
+                      .find((component) => component.startsWith("M"))
+                      .substring(2)}`
+                  : ""}
+              </div>
               <ReactMarkdown>{option.combat_text}</ReactMarkdown>
             </AccordionDetails>
           </Accordion>

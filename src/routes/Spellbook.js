@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 const Spellbook = () => {
   const cantrips = character.character_class.cantrips_known;
   const spells = character.character_class.spells_in_spellbook;
-  const spell_levels = [1, 2];
+  const spell_levels = Object.keys(character.character_class.spell_slots).map(
+    (str) => Number(str)
+  );
   return (
     <div style={{ paddingLeft: 16 }}>
       <table
@@ -91,7 +93,7 @@ const Spellbook = () => {
               {spells
                 .filter((spell) => spell.level === level)
                 .sort((a, b) => a.name.localeCompare(b.name))
-                .map(({ name }) => (
+                .map(({ name, ritual }) => (
                   <tr>
                     <td>
                       <div
@@ -116,6 +118,7 @@ const Spellbook = () => {
                         {name}
                       </Link>
                     </td>
+                    <td>{ritual ? "R" : ""}</td>
                   </tr>
                 ))}
             </>

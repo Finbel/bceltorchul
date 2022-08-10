@@ -15,7 +15,28 @@ const Cross = ({ onClick }) => (
       textAlign: "center",
     }}
   >
-    <span style={{ position: "relative", top: -0.48, right: -0.2 }}>✕</span>
+    <div
+      style={{
+        backgroundColor: "#451209",
+        width: "17.5px",
+        position: "relative",
+        top: 7.5,
+        right: 1,
+        height: 1,
+        transform: "rotate(45deg)",
+      }}
+    />
+    <div
+      style={{
+        backgroundColor: "#451209",
+        width: "17.5px",
+        position: "relative",
+        top: 6.5,
+        right: 1,
+        height: 1,
+        transform: "rotate(-45deg)",
+      }}
+    />
   </div>
 );
 
