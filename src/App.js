@@ -7,16 +7,15 @@ import { useEffect, useState } from "react";
 function App() {
   const [height, setHeight] = useState(window.visualViewport.height - 40);
   useEffect(() => {
-    window.addEventListener(
-      "resize",
+    window.addEventListener("resize", () =>
       setHeight(window.visualViewport.height - 40)
     );
 
-    return () =>
-      window.removeEventListener(
-        "resize",
+    return () => {
+      window.removeEventListener("resize", () =>
         setHeight(window.visualViewport.height - 40)
       );
+    };
   }, []);
   return (
     <div className="App" style={{ minHeight: height }}>
@@ -43,6 +42,7 @@ function App() {
               </Route>
             ))}
           </Routes>
+          {height}
         </div>
       </BrowserRouter>
     </div>
