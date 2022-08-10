@@ -123,7 +123,7 @@ export const skills = [
   },
 ];
 
-const equipment = [
+export const equipment = [
   {
     name: "Backpack",
     description: `A backpack is a common item that is used by many adventurers. It is a small, open bag that can hold up to 10 pounds.`,
