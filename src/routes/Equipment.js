@@ -5,6 +5,7 @@ const Equipment = () => {
   console.log(character.starting_equipment);
   return (
     <div style={{ paddingLeft: 16 }}>
+      <div>Gold: {character.starting_gold} gp</div>
       <table
         style={{
           borderCollapse: "separate",
