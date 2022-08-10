@@ -64,13 +64,13 @@ const WIZARD_LEVEL = 3;
 const proficiency_bonus = 2;
 
 const scholars_pack = [
-  "a backpack",
-  "a bottle of ink",
-  "a book of lore",
-  "an ink pen",
+  "Backpack",
+  "Bottle of ink",
+  "Book of lore",
+  "Ink pen",
   "10 sheets of parchment",
-  "a little bag of sand",
-  "a small knife",
+  "Little bag of sand",
+  "Small knife",
 ];
 
 const character_class = {
@@ -82,7 +82,7 @@ const character_class = {
   hit_points: 6 + 1 + 5 + 5,
   spellcasting_ability: "Intelligence",
   spell_save_dc: 8 + proficiency_bonus + modifiers.int,
-  equipment: ["a quarterstaff", ...scholars_pack, "a spellbook"],
+  equipment: ["Quarterstaff", ...scholars_pack, "Spellbook"],
   cantrips_known: [
     {
       name: "Minor Illusion",
@@ -303,10 +303,6 @@ An affected target is so convinced of the phantasm’s reality that it can even 
       name: "Spellcasting Focus",
       description:
         "You can use an arcane focus as a spellcasting focus for your wizard spells.",
-      chosen_focus: {
-        name: "A crystal (spellcasting focus)",
-        cost: 10,
-      },
     },
     {
       name: "Arcane Recovery",
@@ -355,7 +351,7 @@ const background = {
   tool_proficiency: "One type of gaming set",
   extra_languages: 1,
   selected_languages: ["Celestial"],
-  equipment: ["A set of fine clothes", "a signet ring", "a scroll of pedigree"],
+  equipment: ["Set of fine clothes", "Signet ring", "Scroll of pedigree"],
   gold: 25,
   features: [
     {
@@ -386,17 +382,11 @@ const initiative = attributes.dex;
 
 const starting_gold = 150;
 
-const spellcasting_focus = character_class.features.find(
-  (c) => c.name === "Spellcasting Focus"
-).chosen_focus;
-
-const total_starting_gold =
-  starting_gold + background.gold - spellcasting_focus.cost;
+const total_starting_gold = starting_gold + background.gold;
 
 const starting_equipment = [
   ...background.equipment,
   ...character_class.equipment,
-  spellcasting_focus.name,
 ];
 
 const languages = [
