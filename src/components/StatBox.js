@@ -1,8 +1,9 @@
 import React from "react";
 
-const StatBox = ({ stat, name }) => {
+const StatBox = ({ stat, name, onClick }) => {
   return (
     <div
+      onClick={onClick}
       style={{
         width: "46px",
         height: name ? "72px" : "52px",

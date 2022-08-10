@@ -81,7 +81,7 @@ const character_class = {
   hit_dice: `1d6 * ${WIZARD_LEVEL}`,
   hit_points: 6 + 1 + 5 + 5,
   spellcasting_ability: "Intelligence",
-  spell_save_dc: 8 + proficiency_bonus + attributes.int,
+  spell_save_dc: 8 + proficiency_bonus + modifiers.int,
   equipment: ["a quarterstaff", ...scholars_pack, "a spellbook"],
   cantrips_known: [
     {
@@ -136,6 +136,10 @@ If you cast this spell multiple times, you can have up to three of its non-insta
       description: `You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes **1d10 fire damage.** A flammable object hit by this spell ignites if it isn’t being worn or carried.
         
 This spell’s damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).`,
+      combat_text: `* Make a ranged spell attack against the target.
+   * d20 + ${proficiency_bonus + modifiers.int} against the target’s AC.
+* On hit deal 1d10 fire damage.
+* On miss, any flammable object hit catches fire`,
     },
   ],
   spells_in_spellbook: [
@@ -162,6 +166,8 @@ The spell can penetrate most barriers, but is blocked by 1 foot of stone, 1 inch
       description: `You create three glowing darts of magical force. Each dart hits a creature of your choice that you can see within range. A dart deals 1d4 + 1 force damage to its target. The darts all strike simultaneously and you can direct them to hit one creature or several.
 
 At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the spell creates one more dart for each slot level above 1st.`,
+      combat_text: `* Select three targets within range.
+* Each missile deals 1d4 + 1 force damage to its target.`,
     },
     {
       level: 1,
@@ -174,6 +180,10 @@ At Higher Levels. When you cast this spell using a spell slot of 2nd level or hi
       description: `You hurl a 4-inch-diameter sphere of energy at a creature that you can see within range. You choose acid, cold, fire, lightning, poison, or thunder for the type of orb you create, and then make a ranged spell attack against the target. If the attack hits, the creature takes 3d8 damage of the type you chose.
 
 At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d8 for each slot level above 1st.`,
+      combat_text: `* Choose acid, cold, fire, lightning, poison, or thunder.
+* Make a ranged spell attack against the target.
+   * d20 + ${proficiency_bonus + modifiers.int} against the target’s AC.
+* On hit, the target takes 3d8 damage of the type you chose.`,
     },
     {
       level: 1,
@@ -267,6 +277,15 @@ The target can use its action to examine the phantasm with an Intelligence (Inve
 While a target is affected by the spell, the target treats the phantasm as if it were real. The target rationalizes any illogical outcomes from interacting with the phantasm. For example, a target attempting to walk across a phantasmal bridge that spans a chasm falls once it steps onto the bridge. If the target survives the fall, it still believes that the bridge exists and comes up with some other explanation for its fall; it was pushed, it slipped, or a strong wind might have knocked it off.
       
 An affected target is so convinced of the phantasm’s reality that it can even take damage from the illusion. A phantasm created to appear as a creature can attack the target. Similarly, a phantasm created to appear as fire, a pool of acid, or lava can burn the target. Each round on your turn, the phantasm can deal 1d6 psychic damage to the target if it is in the phantasm’s area or within 5 feet of the phantasm, provided that the illusion is of a creature or hazard that could logically deal damage, such as by attacking. The target perceives the damage as a type appropriate to the illusion.`,
+      combat_text: `* Select a target within range.
+* The target must make an Intelligence saving throw vs (${
+        8 + proficiency_bonus + modifiers.int
+      }).
+* On a failed save, you create a phantasmal object, creature, or other visible phenomenon of your choice that is no larger than a 10-foot cube and that is perceivable only to the target for the duration. This spell has no effect on undead or constructs.
+* The target can use its action to examine the phantasm with an Investigation-check against ${
+        8 + proficiency_bonus + modifiers.int
+      }. If the check succeeds, the target realizes that the phantasm is an illusion, and the spell ends.
+* Each round on your turn, the phantasm can deal 1d6 psychic damage to the target if it is in the phantasm’s area or within 5 feet of the phantasm, provided that the illusion is of a creature or hazard that could logically deal damage, such as by attacking.`,
     },
   ],
   features: [
@@ -317,6 +336,10 @@ An affected target is so convinced of the phantasm’s reality that it can even 
       },
     },
   ],
+  spell_slots: {
+    1: 4,
+    2: 2,
+  },
   prepared_lvl_1_spells: [
     "Magic Missile",
     "Magic Missile",
@@ -388,6 +411,19 @@ const proficiencies = [
   ...race.selected_proficiencies,
 ].sort();
 
+const combat_options = [
+  character_class.cantrips_known.find((spell) => spell.name === "Fire Bolt"),
+  character_class.spells_in_spellbook.find(
+    (spell) => spell.name === "Chromatic Orb"
+  ),
+  character_class.spells_in_spellbook.find(
+    (spell) => spell.name === "Magic Missile"
+  ),
+  character_class.spells_in_spellbook.find(
+    (spell) => spell.name === "Phantasmal Force"
+  ),
+];
+
 export const character = {
   name,
   race,
@@ -406,4 +442,5 @@ export const character = {
   total_starting_gold,
   starting_equipment,
   proficiencies,
+  combat_options,
 };

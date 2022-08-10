@@ -1,7 +1,9 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 import { character } from "../character";
+import useLocalStorage from "../utils/useLocalStorage";
 
 const getComponentsString = (componentList) => {
   return componentList
@@ -21,13 +23,28 @@ const getComponentsString = (componentList) => {
 };
 
 const Spell = () => {
+  const [prepared_spells, setPrepared_spells] = useLocalStorage(
+    "prepared_spells",
+    [
+      ...character.character_class.prepared_lvl_1_spells,
+      ...character.character_class.prepared_lvl_2_spells,
+    ].map((spell) => ({
+      ...character.character_class.spells_in_spellbook.find(
+        ({ name }) => spell === name
+      ),
+      id: uuid(),
+    }))
+  );
+
   const spells = [
     ...character.character_class.cantrips_known,
     ...character.character_class.spells_in_spellbook,
   ];
   const { spell_name } = useParams();
   const spell = spells.find((spell) => spell.name === spell_name);
-  console.log(spell);
+  const spellSlotsLeft =
+    character.character_class.spell_slots[spell.level] -
+    prepared_spells.filter(({ level }) => level === spell.level).length;
   return (
     <div style={{ paddingBottom: 12 }}>
       <div>
@@ -61,6 +78,38 @@ const Spell = () => {
         </table>
       </div>
       <ReactMarkdown>{spell.description}</ReactMarkdown>
+      {spell.level && (
+        <div
+          style={{
+            marginTop: "22px",
+            fontSize: "18px",
+            display: "flex",
+            alignItems: "center",
+            ...(spellSlotsLeft < 1 ? { color: "#8c6f53" } : {}),
+          }}
+          onClick={() =>
+            spellSlotsLeft > 0 &&
+            setPrepared_spells([
+              ...prepared_spells,
+              {
+                ...spell,
+                id: uuid(),
+              },
+            ])
+          }
+        >
+          <span
+            style={{
+              fontSize: "48px",
+              ...(spellSlotsLeft < 1 ? { color: "#8c6f53" } : {}),
+            }}
+          >
+            ✍︎
+          </span>
+          Prepare Spell{" "}
+          {`(${spellSlotsLeft} slot${spellSlotsLeft > 1 ? "s" : ""} left)`}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,9 +1,10 @@
 import React from "react";
+import { character } from "../character";
 import Startpage from "./Startpage";
 import Spellbook from "./Spellbook";
 import Spell from "./Spell";
 import Skills from "./Skills";
-import { character } from "../character";
+import Prepared from "./Prepared";
 import Combat from "./Combat";
 
 const routes = [
@@ -26,6 +27,11 @@ const routes = [
     path: "/combat",
     element: <Combat />,
     name: "Combat",
+  },
+  {
+    path: "/prepared",
+    element: <Prepared />,
+    name: "Prepared Spells",
   },
 ];
 
