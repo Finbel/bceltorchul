@@ -6,6 +6,7 @@ import Spell from "./Spell";
 import Skills from "./Skills";
 import Prepared from "./Prepared";
 import Combat from "./Combat";
+import Skill from "./Skill";
 
 const routes = [
   {
@@ -39,6 +40,10 @@ export const sub_routes = [
   {
     path: "/spellbook/:spell_name",
     element: <Spell />,
+  },
+  {
+    path: "/skill/:skill_name",
+    element: <Skill />,
   },
 ];
 

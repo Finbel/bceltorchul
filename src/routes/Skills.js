@@ -1,6 +1,7 @@
 import React from "react";
 import { skills, abilities } from "../data";
 import { character } from "../character";
+import { Link } from "react-router-dom";
 
 const Skills = () => {
   return (
@@ -76,7 +77,16 @@ const Skills = () => {
                         )}
                       </td>
                       <td>
-                        <div style={{ marginRight: 16 }}>{name}</div>
+                        <Link
+                          to={`/skill/${encodeURIComponent(name)}`}
+                          style={{
+                            marginRight: 16,
+                            color: "#451209",
+                            textDecoration: "none",
+                          }}
+                        >
+                          {name}
+                        </Link>
                       </td>
                       <td>
                         {character.modifiers[ability] +
