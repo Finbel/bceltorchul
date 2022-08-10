@@ -376,9 +376,9 @@ const alignment = "Neutral";
 
 const height = 5.3;
 
-const ac = 10 + attributes.dex;
+const ac = 10 + modifiers.dex;
 
-const initiative = attributes.dex;
+const initiative = modifiers.dex;
 
 const starting_gold = 150;
 
