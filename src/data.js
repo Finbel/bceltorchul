@@ -29,8 +29,7 @@ export const skills = [
   {
     name: "Acrobatics",
     ability: "dex",
-    description: `
-    To see if you can perform acrobatic stunts, including dives, rolls, somersaults, and flips.`,
+    description: `To see if you can perform acrobatic stunts, including dives, rolls, somersaults, and flips.`,
   },
   {
     name: "Animal Handling",
