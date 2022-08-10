@@ -42,7 +42,6 @@ function App() {
               </Route>
             ))}
           </Routes>
-          {height}
         </div>
       </BrowserRouter>
     </div>
