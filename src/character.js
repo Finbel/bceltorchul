@@ -380,7 +380,7 @@ const ac = 10 + modifiers.dex;
 
 const initiative = modifiers.dex;
 
-const starting_gold = 150;
+const starting_gold = 150 + 200;
 
 const total_starting_gold = starting_gold + background.gold;
 
