@@ -88,7 +88,7 @@ const character_class = {
   saving_throws: ["Intelligence", "Wisdom"],
   proficient_skills: ["Insight", "Investigation"],
   hit_dice: `1d6 * ${WIZARD_LEVEL}`,
-  hit_points: 6 + 1 + 5 + 5,
+  hit_points: 6 + 1 + 5 + 5 + 5,
   spellcasting_ability: "Intelligence",
   spell_save_dc: 8 + proficiency_bonus + modifiers.int,
   equipment: ["Quarterstaff", ...scholars_pack, "Spellbook"],
