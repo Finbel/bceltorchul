@@ -40,13 +40,22 @@ const ability_score = {
   cha: 13,
 };
 
+const leveled_score = {
+  str: 0,
+  dex: 0,
+  con: 0,
+  int: 1,
+  wis: 0,
+  cha: 0,
+};
+
 const attributes = {
-  str: race.ability_bonus.str + ability_score.str,
-  dex: race.ability_bonus.dex + ability_score.dex,
-  con: race.ability_bonus.con + ability_score.con,
-  int: race.ability_bonus.int + ability_score.int,
-  wis: race.ability_bonus.wis + ability_score.wis,
-  cha: race.ability_bonus.cha + ability_score.cha,
+  str: race.ability_bonus.str + ability_score.str + leveled_score.str,
+  dex: race.ability_bonus.dex + ability_score.dex + leveled_score.dex,
+  con: race.ability_bonus.con + ability_score.con + leveled_score.con,
+  int: race.ability_bonus.int + ability_score.int + leveled_score.int,
+  wis: race.ability_bonus.wis + ability_score.wis + leveled_score.wis,
+  cha: race.ability_bonus.cha + ability_score.cha + leveled_score.cha,
 };
 
 const get_modifier = (attribute) => Math.floor((attribute - 10) / 2);
@@ -60,7 +69,7 @@ const modifiers = {
   cha: get_modifier(attributes.cha),
 };
 
-const WIZARD_LEVEL = 3;
+const WIZARD_LEVEL = 4;
 const proficiency_bonus = 2;
 
 const scholars_pack = [
@@ -136,6 +145,22 @@ If you cast this spell multiple times, you can have up to three of its non-insta
       description: `You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes **1d10 fire damage.** A flammable object hit by this spell ignites if it isn’t being worn or carried.
         
 This spell’s damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).`,
+      combat_text: `* Make a ranged spell attack against the target.
+   * d20 + ${proficiency_bonus + modifiers.int} against the target’s AC.
+* On hit deal 1d10 fire damage.
+* On miss, any flammable object hit catches fire`,
+    },
+    {
+      name: "Mage Hand",
+      casting_time: "1 action",
+      range: 30,
+      components: ["V", "S"],
+      duration: "1 minute",
+      description: `A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.
+
+You can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it.
+
+The hand can’t attack, activate magic items, or carry more than 10 pounds.`,
       combat_text: `* Make a ranged spell attack against the target.
    * d20 + ${proficiency_bonus + modifiers.int} against the target’s AC.
 * On hit deal 1d10 fire damage.
@@ -287,6 +312,43 @@ An affected target is so convinced of the phantasm’s reality that it can even 
       }. If the check succeeds, the target realizes that the phantasm is an illusion, and the spell ends.
 * Each round on your turn, the phantasm can deal 1d6 psychic damage to the target if it is in the phantasm’s area or within 5 feet of the phantasm, provided that the illusion is of a creature or hazard that could logically deal damage, such as by attacking.`,
     },
+    {
+      level: 2,
+      name: "Web",
+      ritual: false,
+      casting_time: "1 action",
+      range: 60,
+      components: ["V", "S", "M (a bit of spiderweb)"],
+      duration: "Concentration, up to 1 hour",
+      description: `You conjure a mass of thick, sticky webbing at a point of your choice within range. The webs fill a 20-foot cube from that point for the duration. The webs are difficult terrain and lightly obscure their area.
+
+If the webs aren’t anchored between two solid masses (such as walls or trees) or layered across a floor, wall, or ceiling, the conjured web collapses on itself, and the spell ends at the start of your next turn. Webs layered over a flat surface have a depth of 5 feet.
+
+Each creature that starts its turn in the webs or that enters them during its turn must make a Dexterity saving throw. On a failed save, the creature is restrained as long as it remains in the webs or until it breaks free.
+
+A creature restrained by the webs can use its action to make a Strength check against your spell save DC (${
+        8 + proficiency_bonus + modifiers.int
+      }). If it succeeds, it is no longer restrained.
+
+The webs are flammable. Any 5-foot cube of webs exposed to fire burns away in 1 round, dealing 2d4 fire damage to any creature that starts its turn in the fire.`,
+      combat_text: `* Select a target area within range.
+* The webs fill a 20-foot cube from that point for the duration. The webs are difficult terrain and lightly obscure their area.
+* Each creature that starts its turn in the webs or that enters them during its turn must make a Dexterity saving throw. On a failed save, the creature is restrained as long as it remains in the webs or until it breaks free.
+* A creature restrained by the webs can use its action to make a Strength check against your spell save DC (${
+        8 + proficiency_bonus + modifiers.int
+      }). If it succeeds, it is no longer restrained.
+* The webs are flammable. Any 5-foot cube of webs exposed to fire burns away in 1 round, dealing 2d4 fire damage to any creature that starts its turn in the fire.`,
+    },
+    {
+      level: 2,
+      name: "Misty Step",
+      ritual: false,
+      casting_time: "1 bonus action",
+      range: "Self",
+      components: ["V"],
+      duration: "Instantaneous",
+      description: `Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space that you can see.`,
+    },
   ],
   features: [
     {
@@ -334,7 +396,7 @@ An affected target is so convinced of the phantasm’s reality that it can even 
   ],
   spell_slots: {
     1: 4,
-    2: 2,
+    2: 3,
   },
   prepared_lvl_1_spells: [
     "Magic Missile",
@@ -413,6 +475,7 @@ const combat_options = [
   character_class.spells_in_spellbook.find(
     (spell) => spell.name === "Phantasmal Force"
   ),
+  character_class.spells_in_spellbook.find((spell) => spell.name === "Web"),
 ];
 
 export const character = {

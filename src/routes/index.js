@@ -8,6 +8,7 @@ import Prepared from "./Prepared";
 import Combat from "./Combat";
 import Skill from "./Skill";
 import Equipment from "./Equipment";
+import Notes from "./Notes";
 
 const routes = [
   {
@@ -39,6 +40,11 @@ const routes = [
     path: "/equipment",
     element: <Equipment />,
     name: "Equipment",
+  },
+  {
+    path: "/notes",
+    element: <Notes />,
+    name: "Notes",
   },
 ];
 
