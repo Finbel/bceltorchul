@@ -44,7 +44,7 @@ const leveled_score = {
   str: 0,
   dex: 0,
   con: 0,
-  int: 1,
+  int: 2,
   wis: 0,
   cha: 0,
 };
